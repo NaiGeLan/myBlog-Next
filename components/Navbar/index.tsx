@@ -10,10 +10,8 @@ const Navbar: NextPage = () => {
   const { pathname } = useRouter()
   const [isShowLogin, setIsShowLogin] = useState(false)
   const handleGotoEditorPage = () => {
-    console.log('toeditor')
   }
   const handleLogin = () => {
-    console.log('login')
     setIsShowLogin(true)
   }
   const handleClose = () => {
