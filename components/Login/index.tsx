@@ -1,0 +1,51 @@
+// import type { NextPage } from 'next'
+import { useState } from 'react'
+import styles from './index.module.scss'
+interface IProp {
+  isShow: boolean
+  onClose: Function
+}
+const Login = (props: IProp) => {
+  const { isShow = false } = props
+  const [formData, setFormData] = useState({
+    phone: '',
+    verify: '',
+  })
+  const handleGetVerifyCode = () => {
+    console.log('get')
+  }
+  const handleClose = () => {
+    props.onClose()
+  }
+  const handleFormChange = (e: any) => {
+    const { name, value } = e?.target
+    setFormData({
+      ...formData,
+      [name]: value,
+    })
+  }
+  return (
+    isShow
+      ? <div className={styles.loginArea}>
+      <div className={styles.loginBox}>
+        <div className={styles.loginTitle}>
+            <div>手机号登录</div>
+            <div className={styles.close} onClick={handleClose}>x</div>
+        </div>
+        <input name='phone' type='text' placeholder='请输入手机号' value={formData.phone} onChange={handleFormChange}></input>
+        <div className={styles.verifyCodeArea}>
+          <input name='verify' type='text' placeholder='请输入验证码' value={formData.verify} onChange={handleFormChange}></input>
+          <span className={styles.getVerifyCode} onClick={handleGetVerifyCode}>获取验证码</span>
+        </div>
+        <div className={styles.loginBtn}>登陆</div>
+        <div className={styles.otherLogin}>使用GitHub登陆</div>
+        <div className={styles.loginPrivacy}>
+          注册登陆即表示同意
+          <a href="#" target='_blank'>隐私政策</a>
+        </div>
+      </div>
+    </div>
+      : null
+  )
+}
+export default Login

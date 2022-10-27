@@ -1,0 +1,29 @@
+.navbar {
+  height: 3em;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #f1f1f1;
+  .logArea {
+    font-size: 2em;
+    font-weight: bolder;
+    margin-right: 4em;
+  }
+  .linkArea {
+    a {
+      font-size: 1.2em;
+      padding: 0 1em;
+      color:#433754; 
+    }
+    .active {
+      color: #0f6df8;
+    }
+  }
+  .operateArea {
+    margin-left: 5em;
+    Button {
+      margin-right: 2em;
+    }
+  }
+}
