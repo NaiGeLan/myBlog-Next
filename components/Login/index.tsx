@@ -1,6 +1,7 @@
-// import type { NextPage } from 'next'
 import { useState } from 'react'
 import CountDown from 'components/CountDown'
+import http from 'service/http'
+import { message } from 'antd'
 import styles from './index.module.scss'
 interface IProp {
   isShow: boolean
@@ -13,7 +14,22 @@ const Login = (props: IProp) => {
     verify: '',
   })
   const [isShowVerifyCode, setIsShowVerifyCode] = useState(false)
-  const handleGetVerifyCode = () => {
+  // 获取验证码
+  const handleGetVerifyCode = async () => {
+    if (!formData.phone) {
+      message.warning('请输入手机号')
+      return
+    }
+    const data = {
+      to: formData.phone,
+      templateId: 1,
+    }
+    const res: any = await http.post('/user/sendVerifyCode', data)
+    if (res) {
+      setIsShowVerifyCode(true)
+      message.success('验证码已经发向您的手机')
+    }
+    else { message.error(res?.message || '未知错误') }
     setIsShowVerifyCode(true)
   }
   const handleClose = () => {
@@ -49,7 +65,7 @@ const Login = (props: IProp) => {
         <div className={styles.otherLogin}>使用GitHub登陆</div>
         <div className={styles.loginPrivacy}>
           注册登陆即表示同意
-          <a href="#" target='_blank'>隐私政策</a>
+          {/* <a href="https://www.icourse163.org/about/contactus.htm#/contactus?type=5" target='_blank'>隐私政策</a> */}
         </div>
       </div>
     </div>
