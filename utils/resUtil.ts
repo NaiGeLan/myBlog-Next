@@ -12,16 +12,16 @@ const utils = {
       skipIndex,
     }
   },
-  success(code: number = CODE.SUCCESS, data = '', msg = '') {
+  success(code: number = CODE.SUCCESS, data: any = '', message = '') {
     return {
-      code, data, msg,
+      code, data, message,
     }
   },
 
-  fail(code: number = CODE.BUSINESS_ERROR, msg = '') {
+  fail(code: number = CODE.BUSINESS_ERROR, message = '') {
     return {
       code,
-      msg,
+      message,
     }
   },
 

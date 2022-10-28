@@ -8,7 +8,7 @@ interface IProp {
   onClose: Function
 }
 const Login = (props: IProp) => {
-  const { isShow = false } = props
+  const { isShow = false, onClose } = props
   const [formData, setFormData] = useState({
     phone: '',
     verify: '',
@@ -25,15 +25,16 @@ const Login = (props: IProp) => {
       templateId: 1,
     }
     const res: any = await http.post('/user/sendVerifyCode', data)
-    if (res) {
+    // console.log(res)
+    if (res.code === 200) {
       setIsShowVerifyCode(true)
       message.success('验证码已经发向您的手机')
     }
-    else { message.error(res?.message || '未知错误') }
+    else { return }
     setIsShowVerifyCode(true)
   }
   const handleClose = () => {
-    props.onClose()
+    onClose()
   }
   const handleFormChange = (e: any) => {
     const { name, value } = e?.target
@@ -45,6 +46,22 @@ const Login = (props: IProp) => {
   const handleCountDownEnd = () => {
     // alert('结束')
     setIsShowVerifyCode(false)
+  }
+  const handleLogin = async () => {
+    const data = {
+      ...formData,
+      identityType: 'phone',
+    }
+    const res: any = await http.post('/user/login', data)
+    // console.log(res)
+    if (res?.code === 200) {
+      // 登陆成功
+      message.success(res?.message)
+      handleClose()
+    }
+    // else {
+    //   message.error(res?.message)
+    // }
   }
   return (
     isShow
@@ -58,10 +75,10 @@ const Login = (props: IProp) => {
         <div className={styles.verifyCodeArea}>
           <input name='verify' type='text' placeholder='请输入验证码' value={formData.verify} onChange={handleFormChange}></input>
           <span className={styles.getVerifyCode} onClick={handleGetVerifyCode}>
-            {isShowVerifyCode ? <CountDown time = {10} onEnd={ handleCountDownEnd } /> : '获取验证码' }
+            {isShowVerifyCode ? <CountDown time = {60} onEnd={ handleCountDownEnd } /> : '获取验证码' }
           </span>
         </div>
-        <div className={styles.loginBtn}>登陆</div>
+        <div className={styles.loginBtn} onClick={handleLogin}>登陆</div>
         <div className={styles.otherLogin}>使用GitHub登陆</div>
         <div className={styles.loginPrivacy}>
           注册登陆即表示同意

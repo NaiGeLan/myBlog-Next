@@ -25,7 +25,7 @@ http.interceptors.response.use(
       return res
     }
     else {
-      return res.data
+      return res
     }
   },
   (error) => {

@@ -21,16 +21,16 @@ const utils = {
       skipIndex,
     }
   },
-  success(msg = '', data = '', code = CODE.SUCCESS) {
+  success(message = '', data = '', code = CODE.SUCCESS) {
     return {
-      code, data, msg,
+      code, data, message,
     }
   },
 
-  fail(msg = '', code = CODE.BUSINESS_ERROR) {
+  fail(message = '', code = CODE.BUSINESS_ERROR) {
     return {
       code,
-      msg,
+      message,
     }
   },
 

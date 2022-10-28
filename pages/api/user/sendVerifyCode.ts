@@ -32,8 +32,8 @@ async function sendVerifyCode(req: NextApiRequest, res: NextApiResponse) {
       Authorization,
     },
   })
-  console.log({ statusCode, statusMsg })
-  if (statusMsg) {
+  // console.log({ statusCode, statusMsg })
+  if (statusCode === '000000') {
     session.verifyCode = verifyCode
     await session.save()
     res.status(200).json(
