@@ -9,7 +9,7 @@ interface IProps {
   children: ReactElement
 }
 
-enableStaticRendering(!process.browser)
+enableStaticRendering(false)
 
 const StoreContext = createContext({})
 

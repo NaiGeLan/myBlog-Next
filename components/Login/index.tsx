@@ -1,13 +1,16 @@
+import { useStore } from 'store/index'
 import { useState } from 'react'
 import CountDown from 'components/CountDown'
 import http from 'service/http'
 import { message } from 'antd'
+import { observer } from 'mobx-react-lite'
 import styles from './index.module.scss'
 interface IProp {
   isShow: boolean
   onClose: Function
 }
 const Login = (props: IProp) => {
+  const store = useStore()
   const { isShow = false, onClose } = props
   const [formData, setFormData] = useState({
     phone: '',
@@ -56,12 +59,15 @@ const Login = (props: IProp) => {
     // console.log(res)
     if (res?.code === 200) {
       // 登陆成功
+      // console.log(res)
       message.success(res?.message)
+      store.user.setUserInfo({
+        userId: res.data.id,
+        avatar: res.data.avatar,
+        nickname: res.data.nickname,
+      })
       handleClose()
     }
-    // else {
-    //   message.error(res?.message)
-    // }
   }
   return (
     isShow
@@ -89,4 +95,4 @@ const Login = (props: IProp) => {
       : null
   )
 }
-export default Login
+export default observer(Login)

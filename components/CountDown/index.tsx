@@ -16,7 +16,7 @@ const CountDown = (props: IProp) => {
           onEnd && onEnd()
           return count
         }
-        return count - 0.5
+        return count - 1
       })
       return () => {
         clearInterval(id)
