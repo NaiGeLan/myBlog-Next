@@ -1,8 +1,7 @@
 import '../styles/globals.css'
-// import type { AppProps } from 'next/app'
 import type { NextPage } from 'next'
 import { StoreProvider } from '../store'
-import Layout from '../components/layout'
+import Layout from 'components/layout'
 interface IProp {
   initialValue: Record<any, any>
   Component: NextPage
@@ -10,8 +9,8 @@ interface IProp {
 }
 
 function App({ initialValue, Component, pageProps }: IProp) {
-  const renderLay = () => {
-    if (Component.layout === null) {
+  const renderLayout = () => {
+    if ((Component as any).layout === null) {
       return (
           <Component {...pageProps}></Component>
       )
@@ -19,23 +18,20 @@ function App({ initialValue, Component, pageProps }: IProp) {
     else {
       return (
           <Layout>
-            <Component {...pageProps}></Component>
+            <Component {...pageProps} />
           </Layout>
-
       )
     }
   }
 
   return (
     <StoreProvider initialValue={initialValue}>
-      {renderLay()}
+      {renderLayout()}
     </StoreProvider>
   )
 }
 
-App.getInitialProps = async ({ ctx }: any) => {
-  // console.log('!!!!')
-  // console.log(ctx?.req.cookies)
+App.getInitialProps = async ({ ctx }: { ctx: any }) => {
   const { userId, nickname, avatar } = ctx?.req?.cookies || {}
   return {
     initialValue: {

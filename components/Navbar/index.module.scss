@@ -1,7 +1,10 @@
 .navbar {
-  height: 6em;
+  height: 5em;
   background-color: #fff;
   display: flex;
+  position: fixed;
+  width: 100vw;
+  z-index: 10;
   justify-content: center;
   align-items: center;
   border-bottom: 1px solid #f1f1f1;

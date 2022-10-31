@@ -15,7 +15,7 @@ const Navbar: NextPage = () => {
   const [isShowLogin, setIsShowLogin] = useState(false)
   const { pathname, push } = useRouter()
   const store = useStore()
-  const { userId } = store.user.userInfo
+  const { userId, avatar } = store.user.userInfo
   const handleGotoEditorPage = () => {
     if (!userId) {
       message.warning('请先登录')
@@ -69,8 +69,8 @@ const Navbar: NextPage = () => {
     return (
             <Dropdown overlay={menu} placement="bottom" arrow>
                 <Avatar
-                    icon={<UserOutlined />}
                     size={64}
+                    src={avatar}
                 />
             </Dropdown>
 

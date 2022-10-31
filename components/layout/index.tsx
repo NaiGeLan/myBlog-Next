@@ -1,14 +1,13 @@
-import type { NextPage } from 'next'
-import Footer from 'components/Footer'
+// import type { NextPage } from 'next'
 import Navbar from 'components/Navbar'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-const Layout: NextPage = ({ children }) => {
+// import Footer from 'components/Footer'
+import styles from './index.module.scss'
+const Layout = ({ children }: any) => {
   return (
-    <div>
+    <div className={styles.container}>
       <Navbar/>
       <main>{children}</main>
-      <Footer/>
+      {/* <Footer /> */}
     </div>
   )
 }

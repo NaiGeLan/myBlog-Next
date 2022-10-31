@@ -1,0 +1,41 @@
+.link {
+  color: black;
+  
+  .container {
+    border: 1px solid #f1f1f1;
+    background-color: #ffffff;
+    border-radius: 1em;
+    margin-bottom: 1em;
+    padding: 1em;
+    box-shadow: 2px 2px 4px rgba($color: #1da3e1, $alpha: 0.4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .article {
+      width: 80%;
+      .content {
+        font-size: 1em;
+        color: #433754;
+        
+      }
+      .date {
+        font-size: 0.6em;
+        color: #86909c;
+      }
+    }
+    .title {
+      font-size: 1.5em;
+    }
+    
+    .user {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 15%;
+      .view {
+        margin-top: 1em;
+      }
+    }
+  }
+}
