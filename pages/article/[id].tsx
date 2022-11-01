@@ -4,9 +4,11 @@ import {IArticle} from 'pages/api'
 import { useStore } from 'store'
 import styles from './index.module.scss'
 import { formatDistanceToNow } from 'date-fns';
-import { Avatar } from 'antd'
+import { Avatar, Input, Button, message } from 'antd'
 import Link from 'next/link'
 import Markdown from 'markdown-to-jsx'
+import { useState } from 'react'
+import http from 'service/http'
 export async function getServerSideProps({params}: any) {
   console.log(params) 
   const articleId = params?.id
@@ -35,7 +37,24 @@ const ArticleDetail = (props: IProps) => {
   const { article } = props
   const store = useStore()
   const { userId } = store.user.userInfo
+  const commenterAvatar  = store.user.userInfo.avatar
   const { user:{ nickname, avatar, id } } = article
+  const [commentVal, setCommentVal] = useState('')
+  const handleCommentChange = (e: any) => {
+    setCommentVal(e.target.value)
+  }
+  const handleSubmitComment = async () => {
+    if(!commentVal) return message.warning('请输入评论内容')
+    const params = {
+      articleId: article.id,
+      content: commentVal,
+    }
+    const res = await http.post('/comment/publish', params)
+    if((res as any).code !== 200)
+      return message.warning('评论失败')
+    message.success('评论成功')
+    setCommentVal('')
+  }
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>{article.title}</h2>
@@ -51,11 +70,21 @@ const ArticleDetail = (props: IProps) => {
                 <Link className={styles.edit} href={`/editor/${article.id}`}>编辑</Link>
               )
             }
-          </div>
-         
+          </div>     
         </div>
       </div>
       {article.content && <Markdown className={styles.content}>{article.content}</Markdown>}
+      <div className={styles.comment}>
+          <h2>评论</h2>
+          <div className={styles.user}>
+            <Avatar size={40} src={commenterAvatar}></Avatar>
+            <div className={styles.info}>
+              <Input.TextArea placeholder='请输入评论' rows={2} value={commentVal} onChange={handleCommentChange}></Input.TextArea>
+              <Button type='primary' onClick={handleSubmitComment}>发布评论</Button>
+            </div>
+          </div>
+           
+        </div>
     </div>
   )
 }

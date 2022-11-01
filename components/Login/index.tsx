@@ -36,20 +36,15 @@ const Login = (props: IProp) => {
     else { return }
     setIsShowVerifyCode(true)
   }
-  const handleClose = () => {
-    onClose()
-  }
+  const handleClose = () => onClose()
   const handleFormChange = (e: any) => {
-    const { name, value } = e?.target
+    const { name, value } = e!.target
     setFormData({
       ...formData,
       [name]: value,
     })
   }
-  const handleCountDownEnd = () => {
-    // alert('结束')
-    setIsShowVerifyCode(false)
-  }
+  const handleCountDownEnd = () => setIsShowVerifyCode(false)
   const handleLogin = async () => {
     const data = {
       ...formData,
@@ -59,7 +54,7 @@ const Login = (props: IProp) => {
     // console.log(res)
     if (res?.code === 200) {
       // 登陆成功
-      // console.log(res)
+      console.log(res)
       message.success(res?.message)
       store.user.setUserInfo({
         userId: res.data.id,

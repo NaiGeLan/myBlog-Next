@@ -1,22 +1,16 @@
-import {
-  BaseEntity,
-  Column,
-  Entity, JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm'
+import {BaseEntity,Column, Entity, JoinColumn,ManyToOne,OneToMany,PrimaryGeneratedColumn} from'typeorm'
 import { User } from './user'
-
-@Entity({ name: 'articles' })
+// import { Comment } from './comment'
+@Entity('articles')
 export class Article extends BaseEntity {
   @PrimaryGeneratedColumn()
   readonly id!: number
 
   @Column()
-     title!: string
+    content!: string
 
   @Column()
-    content!: string
+    title!: string  
 
   @Column()
     views!: number
@@ -35,4 +29,7 @@ export class Article extends BaseEntity {
   })
   @JoinColumn({ name: 'userId' })
   user!: User
+
+  // @OneToMany(() => Comment, (comment) => comment.article)
+  // comments!: Comment[]
 }

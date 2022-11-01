@@ -1,12 +1,11 @@
 import 'reflect-metadata'
 import { DataSource } from 'typeorm'
-import { Article, User, UserAuth } from './entity/index'
+import { Article, User, UserAuth, Comment } from './entity/index'
 const host = process.env.DATABASE_HOST
 const port = Number(process.env.DATABASE_PORT)
 const username = process.env.DATABASE_USERNAME
 const password = process.env.DATABASE_PASSWORD
 const database = process.env.DATABASE_NAME
-// const host = process.env.DATABASE_HOST
 
 const db = async function () {
   return await new DataSource({
@@ -16,9 +15,9 @@ const db = async function () {
     username, // 数据库用户名
     password, // 数据库用户密码
     database, // 使用的数据库名字
-    synchronize: true, // 是否同步，如果为true，新建的实体会更新建表或更新字段
+    synchronize: false, // 是否同步，如果为true，新建的实体会更新建表或更新字段
     logging: true, // 是否开启日志 为true 为打印执行的sql
-    entities: [User, UserAuth, Article], // 加载entity目录下的ts文件为model
+    entities: [User, UserAuth, Article, Comment], // 加载entity目录下的ts文件为model
     migrations: [],
     subscribers: [],
   }).initialize()

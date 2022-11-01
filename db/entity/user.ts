@@ -1,6 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
-
-@Entity({ name: 'users' })
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
+import { Article } from './article'
+@Entity('users')
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   readonly id!: number
@@ -16,4 +16,7 @@ export class User extends BaseEntity {
 
   @Column()
   introduce!: string
+
+  @OneToMany(() => Article, (article) => article.user)
+  articles!: Article[]
 }

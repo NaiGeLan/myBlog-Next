@@ -31,21 +31,22 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
     // 已存在的用户
     const user = userAuth.user
     const { id, nickname, avatar, job, introduce } = user
+    console.log('已存在的用户', user)
     session.userId = id
-    session.avatar = avatar
+    // session.avatar = avatar
     session.nickname = nickname
     session.job = job
     session.introduce = introduce
+    console.log(session.nickname)
     await session.save()
     setCookie(cookies, { userId: id, nickname, avatar })
     res.status(200).json(Result.success(200, { id, nickname, avatar, job, introduce }, '登陆成功'))
-    // console.log({ id, nickname, avatar, job, introduce }, '@@@')
   }
   else {
     // 新用户 自动注册
     const user = new User()
     user.nickname = `用户_${Math.floor(Math.random() * 10000)}`
-    user.avatar = '123'
+    user.avatar = 'https://tse4-mm.cn.bing.net/th/id/OIP-C.N8u5YgZnruaJAcgAdm-oMwAAAA?w=162&h=180&c=7&r=0&o=5&pid=1.7'
     user.job = '暂无'
     user.introduce = '暂无'
 
@@ -58,12 +59,11 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
     const resUserAuth = await userAuthRep.save(userAuth)
     const { user: { id, nickname, avatar, job, introduce } } = resUserAuth
     session.userId = id
-    session.avatar = avatar
+    // session.avatar = avatar
     session.nickname = nickname
     session.job = job
     session.introduce = introduce
     await session.save()
-    // setCookie(cookies, { userId: id, nickname, avatar })
     res.status(200).json(Result.success(200, { id, nickname, avatar, job, introduce }, '注册成功'))
   }
 }

@@ -21,7 +21,7 @@ export const ListItem = (props: IProp) => {
           <span className={styles.date}>{formatDistanceToNow(new Date(article?.updateTime))}</span>
         </div>
         <div className={styles.user}>
-          <Avatar size={48} src={user.avatar}/>
+          <Avatar size={48} src={user?.avatar}/>
           <span className={styles.name}>{user?.nickname}</span>
           <span className={styles.view}>
               <EyeOutlined />

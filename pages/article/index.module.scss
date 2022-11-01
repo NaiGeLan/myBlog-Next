@@ -1,6 +1,8 @@
 .container {
   background-color: #ffffff;
   padding: 1em;
+  border-radius: 2em;
+  padding-bottom: 3em;
   .title {
     font-size: 2em;
     font-weight: bolder;
@@ -28,5 +30,31 @@
         margin-right: 1em;
       }
     }
+  }
+  .comment {
+    border-top: #86909c 0.5px solid;
+    padding-top: 1em;
+    margin-top: 3em;
+    margin-bottom: 2em;
+    .user {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+      .info {
+        width: 100%;
+        position: relative;
+        Button {
+          margin-top: 1em;
+          position: absolute;
+          right: 1em;
+          top: 4em;
+          width: 10em;
+          height: 3em;
+          border-radius: 1em;
+        }
+      }
+    }
+   
   }
 }
