@@ -1,6 +1,7 @@
-import { AppDataSource } from 'db/index'
-import { Article } from 'db/entity'
-import {IArticle} from 'pages/api'
+// import { AppDataSource } from 'db/index'
+// import { Article } from 'db/entity'
+import { prisma } from 'db/index'
+// import {IArticle} from 'pages/api'
 import { useStore } from 'store'
 import styles from './index.module.scss'
 import { formatDistanceToNow } from 'date-fns';
@@ -9,20 +10,30 @@ import Link from 'next/link'
 import Markdown from 'markdown-to-jsx'
 import { useState } from 'react'
 import http from 'service/http'
+import { Article } from '@prisma/client';
 export async function getServerSideProps({params}: any) {
   console.log(params) 
   const articleId = params?.id
-  const articleRep = (await AppDataSource).getRepository(Article)
-  const article = await articleRep.findOne({
+  // const articleRep = (await AppDataSource).getRepository(Article)
+  const article = await prisma.article.findUnique({
     where: {
-      id: articleId
+      id: Number(articleId)
     },
-    relations: ['user'],
+    include: {
+      author: true,
+    },
   })
   console.log(article);
   if(article) {
     article.views += 1
-    await articleRep.save(article)
+    await prisma.article.update({
+      where: {
+        id: Number(articleId)
+      },
+      data: {
+        views: article.views
+      }
+    })
   }
   return {
     props: {
@@ -31,14 +42,15 @@ export async function getServerSideProps({params}: any) {
   }
 }
 interface IProps {
-  article: IArticle
+  article: Article
 }
 const ArticleDetail = (props: IProps) => {
   const { article } = props
+  console.log(article,'&&&&&&&&&')
   const store = useStore()
   const { userId } = store.user.userInfo
   const commenterAvatar  = store.user.userInfo.avatar
-  const { user:{ nickname, avatar, id } } = article
+  const { author:{ nickname, avatar, id } } = article
   const [commentVal, setCommentVal] = useState('')
   const handleCommentChange = (e: any) => {
     setCommentVal(e.target.value)
@@ -63,7 +75,7 @@ const ArticleDetail = (props: IProps) => {
         <div className={styles.info}>
           <div className={styles.name}>{nickname}</div>
           <div>
-            <span className={styles.date}>{formatDistanceToNow(new Date(article?.updateTime))}</span>
+            <span className={styles.date}>{formatDistanceToNow(new Date(article?.updatedAt))}</span>
             <span className={styles.views}>阅读：{article.views}</span>
             {
               Number(id) === Number(userId) && (

@@ -9,7 +9,8 @@ import { useRouter } from 'next/router'
 import http from 'service/http'
 import styles from './index.module.scss'
 import { AppDataSource } from 'db'
-import { Article } from 'db/entity'
+import { prisma } from 'db/index'
+// import { Article } from 'db/entity'
 import { IArticle } from 'pages/api'
 const MDEditor = dynamic(
   () => import('@uiw/react-md-editor'),
@@ -17,12 +18,13 @@ const MDEditor = dynamic(
 )
 
 export async function getServerSideProps ({params}: any) {
-  const articleRep = (await AppDataSource).getRepository(Article)
-  const article = await articleRep.findOne({
+  const article = await prisma.article.findUnique({
     where: {
-      id: params.id,
+      id: Number(params.id),
     },
-    relations: ['user'],
+    include: {
+      author: true,
+    },
   })
   console.log(article);
   
