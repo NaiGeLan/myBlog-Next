@@ -1,0 +1,28 @@
+.comment {
+  border-top: #eef7ff 0.5px solid;
+  padding-top: 1em;
+  margin-top: 3em;
+  .user {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    .info {
+      width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-left: 1em;
+      Button {
+        margin-top: 1em;
+        width: 8em;
+        height: 3em;
+        border-radius: 1em;
+      }
+      
+    }
+    
+  }
+ 
+}

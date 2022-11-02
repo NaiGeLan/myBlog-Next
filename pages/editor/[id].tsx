@@ -2,14 +2,13 @@ import '@uiw/react-md-editor/markdown-editor.css'
 import '@uiw/react-markdown-preview/markdown.css'
 import { Button, message } from 'antd'
 import dynamic from 'next/dynamic'
-import type { ChangeEvent } from 'react'
 import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import http from 'service/http'
 import styles from './index.module.scss'
-import { AppDataSource } from 'db'
-import { Article } from 'db/entity'
+import { prisma } from 'db/index'
+// import { Article } from 'db/entity'
 import { IArticle } from 'pages/api'
 const MDEditor = dynamic(
   () => import('@uiw/react-md-editor'),
@@ -17,12 +16,13 @@ const MDEditor = dynamic(
 )
 
 export async function getServerSideProps ({params}: any) {
-  const articleRep = (await AppDataSource).getRepository(Article)
-  const article = await articleRep.findOne({
+  const article = await prisma.article.findUnique({
     where: {
-      id: params.id,
+      id: Number(params.id),
     },
-    relations: ['user'],
+    include: {
+      author: true,
+    },
   })
   console.log(article);
   
@@ -57,7 +57,7 @@ const ModifyEditor = (props: IProps) => {
     message.success('更新成功！')
     articleId ? push(`/article/${articleId}`) : push('/')
   }
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e:any) => {
     setTitle(e?.target?.value)
   }
   const handleEditorChange = (content: any) => {

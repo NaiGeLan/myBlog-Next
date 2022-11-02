@@ -9,36 +9,35 @@ export default withIronSessionApiRoute(publish, ironOptions)
 
 async function publish(req: NextApiRequest, res: NextApiResponse) {
   const session: ISession = req.session
-  const { articleId = '', content = '' } = req.body
+  const { commentId = '', content = '' } = req.body
   const user = await prisma.user.findUnique({
     where: {
       id: session.userId,
     }
   })
-  const article = await prisma.article.findUnique({
+  const comment = await prisma.comment.findUnique({
     where: {
-      id: articleId,
+      id: commentId,
     }
   })
-  if (!article)
-    return res.status(200).json(Result.fail(CODE.BUSINESS_ERROR, '未找到文章'))
+  if (!comment)
+    return res.status(200).json(Result.fail(CODE.BUSINESS_ERROR, '未找到评论'))
   if (!user)
     return res.status(200).json(Result.fail(CODE.BUSINESS_ERROR, '未找到用户'))
-  const comment = await prisma.comment.create({
+  const childcomment = await prisma.childComment.create({
     data: {
       content,
+      commentId: commentId,
       updatedAt: new Date(),
       createdAt: new Date(),
-      articleId,
       authorId: user.id,
     },
     include: {
       author: true,
-      article: true,
     }
   })
   if(!comment)
     return res.status(200).json(Result.fail(CODE.BUSINESS_ERROR, '评论失败'))
-  res.status(200).json(Result.success(CODE.SUCCESS, comment, '评论成功'))
+  res.status(200).json(Result.success(CODE.SUCCESS, childcomment, '评论成功'))
 
 }
