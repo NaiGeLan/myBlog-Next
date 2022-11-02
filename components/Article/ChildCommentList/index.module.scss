@@ -1,0 +1,51 @@
+.comments {
+  margin-left: 3em;
+  .commentItem {
+    .user {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      width: 100%;
+      margin-bottom: 0;
+      position: relative;
+      margin-top: 2em;
+      .info {
+        margin-left: 1em;
+        .name {
+          font-size: 0.8em;
+          font-weight: 500;
+        }
+        .date {
+          font-size: 0.8em;
+          color: #86909c;
+          margin-right: 1em;
+        }
+        .views {
+          font-size: 0.8em;
+          color: #86909c;
+          margin-right: 1em;
+        }
+      }
+      .addComment {
+        position: absolute;
+        width: 16em;
+        top: 2.8em;
+        left: 22em;
+        font-size: 0.5em;
+        color: #54a5ff;
+        
+      }
+    }
+    .content {
+      margin-top: 1em;
+      padding: 0.5em;
+      background-color: #eef7ff;
+      border-radius: 1em;
+      margin-bottom: 1em;
+      .callback {
+        color:#54a5ff
+      }
+    }
+  }
+  
+}

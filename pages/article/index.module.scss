@@ -3,39 +3,38 @@
   padding: 1em;
   border-radius: 2em;
   padding-bottom: 3em;
-  .title {
-    font-size: 2em;
-    font-weight: bolder;
-    margin-bottom: 0.5em;
-  }
-  .user {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    margin-bottom: 2em;
-    .info {
-      margin-left: 1em;
-      .name {
-        font-size: 1.2em;
-        font-weight: bolder;
-      }
-      .date {
-        font-size: 0.8em;
-        color: #86909c;
-        margin-right: 1em;
-      }
-      .views {
-        font-size: 0.8em;
-        color: #86909c;
-        margin-right: 1em;
-      }
-    }
-  }
+  // .title {
+  //   font-size: 2em;
+  //   font-weight: bolder;
+  //   margin-bottom: 0.5em;
+  // }
+  // .user {
+  //   display: flex;
+  //   justify-content: start;
+  //   align-items: center;
+  //   margin-bottom: 2em;
+  //   .info {
+  //     margin-left: 1em;
+  //     .name {
+  //       font-size: 1.2em;
+  //       font-weight: bolder;
+  //     }
+  //     .date {
+  //       font-size: 0.8em;
+  //       color: #86909c;
+  //       margin-right: 1em;
+  //     }
+  //     .views {
+  //       font-size: 0.8em;
+  //       color: #86909c;
+  //       margin-right: 1em;
+  //     }
+  //   }
+  // }
   .comment {
-    border-top: #86909c 0.5px solid;
+    border-top: #eef7ff 0.5px solid;
     padding-top: 1em;
     margin-top: 3em;
-    margin-bottom: 2em;
     .user {
       display: flex;
       justify-content: flex-start;
@@ -44,17 +43,56 @@
       .info {
         width: 100%;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
         Button {
           margin-top: 1em;
-          position: absolute;
-          right: 1em;
-          top: 4em;
-          width: 10em;
+          width: 8em;
           height: 3em;
           border-radius: 1em;
         }
+        
       }
+      
     }
    
   }
+  .comments {
+      .commentItem {
+        .user {
+          display: flex;
+          justify-content: flex-start;
+          align-items: flex-start;
+          width: 100%;
+          margin-bottom: 0;
+          position: relative;
+          .info {
+            width: 100%;
+            position: relative;
+            .name {
+              font-size: 0.8em;
+              font-weight: 500;
+            }
+          }
+          .addComment {
+            position: absolute;
+            width: 16em;
+            top: 2.8em;
+            left: 18em;
+            font-size: 0.5em;
+            color: #54a5ff;
+            
+          }
+        }
+        .content {
+          // border: #86909c 0.5px solid;
+          padding: 0.5em;
+          background-color: #eef7ff;
+          border-radius: 1em;
+          margin-bottom: 1em;
+        }
+      }
+      
+    }
 }

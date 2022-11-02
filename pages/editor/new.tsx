@@ -2,7 +2,7 @@ import '@uiw/react-md-editor/markdown-editor.css'
 import '@uiw/react-markdown-preview/markdown.css'
 import { Button, message } from 'antd'
 import dynamic from 'next/dynamic'
-import type { ChangeEvent } from 'react'
+// import type { ChangeEvent } from 'react'
 import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useStore } from 'store/index'
@@ -33,7 +33,7 @@ const NewEditor = () => {
     message.success('发布成功！')
     userId ? push(`/user/${userId}`) : push('/')
   }
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e: any) => {
     setTitle(e?.target?.value)
   }
   const handleEditorChange = (content: any) => {

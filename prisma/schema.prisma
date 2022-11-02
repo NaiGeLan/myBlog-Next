@@ -52,7 +52,7 @@ model Comment {
   authorId  Int
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
-  children  ChildComment[]
+  childrenComment ChildComment[]
 }
 
 model ChildComment {

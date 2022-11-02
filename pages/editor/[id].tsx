@@ -2,13 +2,11 @@ import '@uiw/react-md-editor/markdown-editor.css'
 import '@uiw/react-markdown-preview/markdown.css'
 import { Button, message } from 'antd'
 import dynamic from 'next/dynamic'
-import type { ChangeEvent } from 'react'
 import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import http from 'service/http'
 import styles from './index.module.scss'
-import { AppDataSource } from 'db'
 import { prisma } from 'db/index'
 // import { Article } from 'db/entity'
 import { IArticle } from 'pages/api'
@@ -59,7 +57,7 @@ const ModifyEditor = (props: IProps) => {
     message.success('更新成功！')
     articleId ? push(`/article/${articleId}`) : push('/')
   }
-  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleTitleChange = (e:any) => {
     setTitle(e?.target?.value)
   }
   const handleEditorChange = (content: any) => {

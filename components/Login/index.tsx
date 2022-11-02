@@ -28,7 +28,6 @@ const Login = (props: IProp) => {
       templateId: 1,
     }
     const res: any = await http.post('/user/sendVerifyCode', data)
-    // console.log(res)
     if (res.code === 200) {
       setIsShowVerifyCode(true)
       message.success('验证码已经发向您的手机')
@@ -51,7 +50,6 @@ const Login = (props: IProp) => {
       identityType: 'phone',
     }
     const res: any = await http.post('/user/login', data)
-    // console.log(res)
     if (res?.code === 200) {
       // 登陆成功
       console.log(res)
@@ -83,7 +81,7 @@ const Login = (props: IProp) => {
         <div className={styles.otherLogin}>使用GitHub登陆</div>
         <div className={styles.loginPrivacy}>
           注册登陆即表示同意
-          {/* <a href="https://www.icourse163.org/about/contactus.htm#/contactus?type=5" target='_blank'>隐私政策</a> */}
+          <a href="https://www.icourse163.org/about/contactus.htm#/contactus?type=5" target='_blank' rel="noreferrer">隐私政策</a>
         </div>
       </div>
     </div>

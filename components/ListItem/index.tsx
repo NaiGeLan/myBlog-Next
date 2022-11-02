@@ -1,6 +1,5 @@
 
 import Link from 'next/link'
-import type { IArticle } from 'pages/api'
 import { EyeOutlined } from '@ant-design/icons'
 import styles from './index.module.scss'
 import { Avatar } from 'antd'
