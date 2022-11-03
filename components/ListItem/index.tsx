@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import { Avatar } from 'antd'
 import { formatDistanceToNow } from 'date-fns';
 import { markdownToTxt } from 'markdown-to-txt'
-import { Article } from '@prisma/client'
+import { Article } from '../Article'
 interface IProp {
   article: Article
 }
