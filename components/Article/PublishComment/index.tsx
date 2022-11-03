@@ -3,16 +3,18 @@ import { useState } from 'react'
 import http from 'service/http'
 import { Article } from '..'
 // import { IProps } from '..'
+import { useStore } from 'store'
 import styles from './index.module.scss'
 interface IProps {
   article?:Article | null,
   isChild: boolean,
   commentId?: number,
+  commentToId?: number,
 }
-export const PublishComment = ({article, isChild, commentId}: IProps) => {
+export const PublishComment = ({article, isChild, commentId, commentToId}: IProps) => {
   const [commentVal, setCommentVal] = useState('')
-  // const { author:{ avatar }  } = article
-  const avatar = article?.author?.avatar
+  const  store = useStore()
+  const {  avatar } = store.user.userInfo
   const handleCommentChange = (e: any) => {
     setCommentVal(e.target.value)
   }
@@ -22,6 +24,7 @@ export const PublishComment = ({article, isChild, commentId}: IProps) => {
       const params = {
         commentId: commentId,
         content: commentVal,
+        commentToId: commentToId,
       }
       const res = await http.post('/childcomment/publish', params)
       if((res as any).code !== 200)

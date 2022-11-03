@@ -13,7 +13,6 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
   const { phone = '', verify = '', identityType = 'phone' } = req.body
   const session: ISession = req.session
   const cookies = Cookie.fromApiRoute(req, res)
-  // const userAuthRep = (await AppDataSource).getRepository(UserAuth)
   if (String(session.verifyCode) !== String(verify)) {
     res.status(200).json(Result.fail(CODE.USER_LOGIN_ERROR, '验证码不正确'))
     return
@@ -62,7 +61,6 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
     })
     console.log('新用户', user)
     session.userId = user.id
-    // session.avatar = avatar
     session.nickname = user.nickname
     session.job = user.job
     session.introduce = user.introduce
