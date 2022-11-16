@@ -3,7 +3,7 @@ import { formatDistanceToNow } from "date-fns"
 import { useState } from "react"
 import styles from './index.module.scss'
 import {PublishComment} from "../PublishComment"
-export const ChildCommentList = ({comments}: any) => {
+export const ChildCommentList = ({comments, commentId}: any ) => {
   const [isShowAddComment, setIsShowAddComment] = useState(false)
   const handleClickAddComment = () => {
     setIsShowAddComment(!isShowAddComment)
@@ -21,14 +21,14 @@ export const ChildCommentList = ({comments}: any) => {
                     <div className={styles.name}>{comment.author.nickname}</div>
                     <div className={styles.date}>{formatDistanceToNow(new Date(comment.updatedAt))}</div>
                   </div>
-                  <a className={styles.addComment} onClick={handleClickAddComment}>{isShowAddComment?'点击折叠回复评论':'点击回复评论'}</a>
+                  <a className={styles.addComment} onClick={() => handleClickAddComment()}>{isShowAddComment?'点击折叠回复评论':'点击回复评论'}</a>
                 </div>
-                <div className={styles.content}><span className={styles.callback}>{'@'+comment.author.nickname + ':' }</span>
+                <div className={styles.content}><span className={styles.callback}>{'@'+comment.commentTo.nickname + ':' }</span>
                   {comment.content}
                 </div>
                 {
                   isShowAddComment && (
-                  <PublishComment  isChild={true}></PublishComment>
+                  <PublishComment  isChild={true} commentId={commentId} commentToId={comment.author.id}></PublishComment>
                   )
                 }
               </div>

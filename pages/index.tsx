@@ -1,5 +1,5 @@
 // import { AppDataSource } from 'db/index'
-import { Article } from '@prisma/client'
+import { Article } from 'components/Article'
 // import type { IArticle } from 'pages/api'
 import { ListItem } from '../components/ListItem'
 import { prisma } from 'db/index'

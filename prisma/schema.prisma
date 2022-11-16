@@ -20,7 +20,8 @@ model User {
   auth    Auth?
   articles Article[]
   comments Comment[]
-  childrenComment ChildComment[]
+  childrenComment ChildComment[]  @relation(name: "ChildCommentAuthor")
+  commentTo ChildComment[] @relation(name: "commentTo")
 }
 model Auth {
   id        Int      @default(autoincrement()) @id
@@ -60,8 +61,10 @@ model ChildComment {
   content   String
   comment   Comment  @relation(fields: [commentId], references: [id])
   commentId Int
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id], name: "ChildCommentAuthor")
   authorId  Int
+  commentToId Int
+  commentTo User     @relation(fields: [commentToId], references: [id], name: "commentTo")
   updatedAt DateTime @updatedAt
   createdAt DateTime @default(now())
 }

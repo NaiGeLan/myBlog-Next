@@ -18,6 +18,7 @@ export async function getServerSideProps({params}: any) {
           childrenComment: {
             include: {
               author: true,
+              commentTo: true,
             }
           },
           id: true,

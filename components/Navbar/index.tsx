@@ -16,6 +16,8 @@ const Navbar: NextPage = () => {
   const { pathname, push } = useRouter()
   const store = useStore()
   const { userId, avatar } = store.user.userInfo
+  console.log('userId', userId);
+  
   const handleGotoEditorPage = () => {
     if (!userId) {
       message.warning('请先登录')

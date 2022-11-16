@@ -9,7 +9,9 @@ export default withIronSessionApiRoute(publish, ironOptions)
 
 async function publish(req: NextApiRequest, res: NextApiResponse) {
   const session: ISession = req.session
-  const { commentId = '', content = '' } = req.body
+  const { commentId = '', content = '', commentToId = '' } = req.body
+  console.log('commentId', commentId);
+  
   const user = await prisma.user.findUnique({
     where: {
       id: session.userId,
@@ -30,6 +32,7 @@ async function publish(req: NextApiRequest, res: NextApiResponse) {
       commentId: commentId,
       updatedAt: new Date(),
       createdAt: new Date(),
+      commentToId: commentToId,
       authorId: user.id,
     },
     include: {

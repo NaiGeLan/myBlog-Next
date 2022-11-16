@@ -28,9 +28,9 @@ export const CommentList = ({article}: IProps) => {
                   <a className={styles.addComment} onClick={() => handleClickAddComment(comment.id)}>{isShowAddComment?'点击折叠回复评论':'点击回复评论'}</a>
                 </div>
                 <div className={styles.content}>{comment.content}</div>
-                <ChildCommentList comments={comment.childrenComment}></ChildCommentList>
+                <ChildCommentList comments={comment.childrenComment} commentId={comment.id}></ChildCommentList>
                 {
-                  isShowAddComment && (<PublishComment article={article} isChild={true} commentId={commentId}></PublishComment>)
+                  isShowAddComment && (<PublishComment article={article} isChild={true} commentId={commentId} commentToId={comment.author.id}></PublishComment>)
                 }
               </div>
             )
